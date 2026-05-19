@@ -1,0 +1,1 @@
+-keep class com.mundial2026.album.model.** { *; }

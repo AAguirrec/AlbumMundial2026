@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- AppBar con Toolbar -->
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/verde_mundial"
+            app:title="@string/app_name"
+            app:titleTextColor="@android:color/white" />
+
+        <!-- Panel de estadísticas -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/verde_oscuro"
+            android:orientation="horizontal"
+            android:padding="8dp">
+
+            <TextView android:id="@+id/tvTotal"
+                android:layout_width="0dp" android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textColor="@android:color/white"
+                android:textStyle="bold" android:gravity="center"
+                android:text="Total: 0" />
+
+            <TextView android:id="@+id/tvTengo"
+                android:layout_width="0dp" android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textColor="#A5D6A7"
+                android:textStyle="bold" android:gravity="center"
+                android:text="Tengo: 0" />
+
+            <TextView android:id="@+id/tvFaltan"
+                android:layout_width="0dp" android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textColor="#EF9A9A"
+                android:textStyle="bold" android:gravity="center"
+                android:text="Faltan: 0" />
+
+            <TextView android:id="@+id/tvSobrantes"
+                android:layout_width="0dp" android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textColor="#FFE082"
+                android:textStyle="bold" android:gravity="center"
+                android:text="Para cambio: 0" />
+        </LinearLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <!-- Contenido principal -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <!-- Spinner de secciones -->
+        <Spinner
+            android:id="@+id/spinnerSecciones"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@color/fondo_spinner"
+            android:padding="4dp" />
+
+        <!-- Botones de filtro por estado -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="4dp">
+
+            <Button android:id="@+id/btnTodos"
+                style="@style/BtnFiltro"
+                android:text="Todos"
+                android:backgroundTint="@color/gris_btn" />
+
+            <Button android:id="@+id/btnFaltan"
+                style="@style/BtnFiltro"
+                android:text="Faltan"
+                android:backgroundTint="@color/estado_falta_btn" />
+
+            <Button android:id="@+id/btnTengo"
+                style="@style/BtnFiltro"
+                android:text="Tengo"
+                android:backgroundTint="@color/estado_tiene_btn" />
+
+            <Button android:id="@+id/btnRepetidas"
+                style="@style/BtnFiltro"
+                android:text="Repetidas"
+                android:backgroundTint="@color/estado_repetida_btn" />
+        </LinearLayout>
+
+        <!-- Contador de resultados -->
+        <TextView
+            android:id="@+id/tvContadorFiltro"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="12dp"
+            android:paddingVertical="2dp"
+            android:textSize="12sp"
+            android:textColor="@color/gris_texto"
+            android:text="0 láminas" />
+
+        <!-- Lista de láminas -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerLaminas"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:clipToPadding="false"
+            android:paddingBottom="8dp" />
+
+    </LinearLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

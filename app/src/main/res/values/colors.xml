@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Paleta principal -->
+    <color name="verde_mundial">#1B5E20</color>
+    <color name="verde_oscuro">#0A3D0F</color>
+    <color name="amarillo_copa">#F9A825</color>
+    <color name="fondo_spinner">#E8F5E9</color>
+    <color name="gris_texto">#757575</color>
+    <color name="gris_btn">#9E9E9E</color>
+
+    <!-- Estado láminas (fondos de card) -->
+    <color name="estado_falta">#FFEBEE</color>       <!-- rojo muy claro -->
+    <color name="estado_tiene">#E8F5E9</color>       <!-- verde muy claro -->
+    <color name="estado_repetida">#FFF8E1</color>    <!-- amarillo muy claro -->
+
+    <!-- Estado botones filtro -->
+    <color name="estado_falta_btn">#E57373</color>
+    <color name="estado_tiene_btn">#66BB6A</color>
+    <color name="estado_repetida_btn">#FFB300</color>
+
+    <!-- Material defaults -->
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+</resources>

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cardLamina"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="8dp"
+    android:layout_marginVertical="4dp"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="2dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <!-- Número -->
+        <TextView
+            android:id="@+id/tvNumero"
+            android:layout_width="52dp"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/black"
+            android:text="#001" />
+
+        <!-- Descripción + sección -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:paddingHorizontal="4dp">
+
+            <TextView
+                android:id="@+id/tvDescripcion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:textColor="@android:color/black"
+                android:text="Jugador / Escudo" />
+
+            <TextView
+                android:id="@+id/tvSeccion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="11sp"
+                android:textColor="#666666"
+                android:text="Sección" />
+        </LinearLayout>
+
+        <!-- Estado -->
+        <TextView
+            android:id="@+id/tvEstado"
+            android:layout_width="72dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/black"
+            android:text="FALTA" />
+
+        <!-- Cantidad -->
+        <TextView
+            android:id="@+id/tvCantidad"
+            android:layout_width="32dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/black"
+            android:text="×0" />
+
+        <!-- Botón - -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnMenos"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:minWidth="0dp"
+            android:minHeight="0dp"
+            android:text="−"
+            android:textSize="18sp"
+            android:padding="0dp"
+            android:layout_marginStart="4dp" />
+
+        <!-- Botón + -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnMas"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:minWidth="0dp"
+            android:minHeight="0dp"
+            android:text="+"
+            android:textSize="18sp"
+            android:padding="0dp"
+            android:layout_marginStart="4dp"
+            android:backgroundTint="@color/verde_mundial" />
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

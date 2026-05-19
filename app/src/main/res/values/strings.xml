@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Álbum Mundial 2026</string>
+
+    <!-- Estados -->
+    <string name="estado_falta">FALTA</string>
+    <string name="estado_tiene">TENGO</string>
+    <string name="estado_repetida">REPETIDA</string>
+
+    <!-- Menú -->
+    <string name="action_search">Buscar</string>
+    <string name="action_info">Info</string>
+</resources>
