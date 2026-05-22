@@ -9,8 +9,6 @@ import java.util.List;
 @Dao
 public interface LaminaDao {
 
-    // ── Consultas generales ──────────────────────────────────────────────────
-
     @Query("SELECT * FROM laminas ORDER BY numero ASC")
     LiveData<List<Lamina>> getAllLaminas();
 
@@ -21,9 +19,9 @@ public interface LaminaDao {
     LiveData<List<String>> getSecciones();
 
     @Query("SELECT * FROM laminas WHERE numero = :numero LIMIT 1")
-    Lamina getLaminaByNumero(int numero);   // llamar en hilo de fondo
+    Lamina getLaminaByNumero(int numero);
 
-    // ── Estadísticas ─────────────────────────────────────────────────────────
+    // ── Estadísticas LiveData ─────────────────────────────────────────────────
 
     @Query("SELECT COUNT(*) FROM laminas")
     LiveData<Integer> getTotalLaminas();
@@ -40,7 +38,11 @@ public interface LaminaDao {
     @Query("SELECT COALESCE(SUM(cantidad) - COUNT(*), 0) FROM laminas WHERE estado = 'REPETIDA'")
     LiveData<Integer> getTotalSobrantes();
 
-    // ── Operaciones ──────────────────────────────────────────────────────────
+    /** Sincrónico — para verificar si la BD tiene láminas al iniciar */
+    @Query("SELECT COUNT(*) FROM laminas")
+    int contarLaminasSync();
+
+    // ── Operaciones ───────────────────────────────────────────────────────────
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertLamina(Lamina lamina);

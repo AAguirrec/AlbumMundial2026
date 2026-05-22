@@ -4,6 +4,7 @@ import android.app.Application;
 import androidx.lifecycle.LiveData;
 import com.mundial2026.album.model.EstadoLamina;
 import com.mundial2026.album.model.Lamina;
+import com.mundial2026.album.utils.DatosIniciales;
 import java.util.List;
 
 public class LaminaRepository {
@@ -29,39 +30,50 @@ public class LaminaRepository {
         totalFaltan     = dao.getTotalFaltan();
         totalRepetidas  = dao.getTotalRepetidas();
         sobrantes       = dao.getTotalSobrantes();
+
+        // Si la BD está vacía (primera vez o datos borrados), carga las láminas
+        AlbumDatabase.dbExecutor.execute(() -> {
+            if (dao.contarLaminasSync() == 0) {
+                dao.insertAllLaminas(DatosIniciales.generarLaminas());
+            }
+        });
     }
 
     public LiveData<List<Lamina>> getLaminasPorSeccion(String seccion) {
         return dao.getLaminasPorSeccion(seccion);
     }
 
-    /** Suma 1 a la lámina: FALTA→TIENE, TIENE/REPETIDA→REPETIDA con +1 cantidad */
+    /** Recarga forzada de láminas (útil desde el botón en MainActivity) */
+    public void cargarLaminasSiVacia(Runnable onCompleto) {
+        AlbumDatabase.dbExecutor.execute(() -> {
+            if (dao.contarLaminasSync() == 0) {
+                dao.insertAllLaminas(DatosIniciales.generarLaminas());
+            }
+            if (onCompleto != null) onCompleto.run();
+        });
+    }
+
     public void marcarTengo(int numero) {
         AlbumDatabase.dbExecutor.execute(() -> {
             Lamina lamina = dao.getLaminaByNumero(numero);
             if (lamina == null) return;
-
             if (lamina.getEstado() == EstadoLamina.FALTA) {
                 dao.updateEstado(numero, EstadoLamina.TIENE, 1);
             } else {
-                int nuevaCantidad = lamina.getCantidad() + 1;
-                dao.updateEstado(numero, EstadoLamina.REPETIDA, nuevaCantidad);
+                dao.updateEstado(numero, EstadoLamina.REPETIDA, lamina.getCantidad() + 1);
             }
         });
     }
 
-    /** Resta 1 a la lámina: REPETIDA→TIENE/FALTA según cantidad restante */
     public void marcarFalta(int numero) {
         AlbumDatabase.dbExecutor.execute(() -> {
             Lamina lamina = dao.getLaminaByNumero(numero);
             if (lamina == null) return;
-
             int nuevaCantidad = Math.max(lamina.getCantidad() - 1, 0);
             EstadoLamina nuevoEstado;
             if      (nuevaCantidad == 0) nuevoEstado = EstadoLamina.FALTA;
             else if (nuevaCantidad == 1) nuevoEstado = EstadoLamina.TIENE;
             else                         nuevoEstado = EstadoLamina.REPETIDA;
-
             dao.updateEstado(numero, nuevoEstado, nuevaCantidad);
         });
     }
