@@ -5,17 +5,22 @@ import androidx.annotation.NonNull;
 import androidx.room.*;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 import com.mundial2026.album.model.Lamina;
+import com.mundial2026.album.model.Usuario;
 import com.mundial2026.album.utils.DatosIniciales;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {Lamina.class}, version = 1, exportSchema = false)
+@Database(
+    entities  = {Lamina.class, Usuario.class},   // ← se agrega Usuario
+    version   = 2,                                // ← versión sube a 2
+    exportSchema = false
+)
 @TypeConverters({Converters.class})
 public abstract class AlbumDatabase extends RoomDatabase {
 
-    public abstract LaminaDao laminaDao();
+    public abstract LaminaDao  laminaDao();
+    public abstract UsuarioDao usuarioDao();    // ← nuevo DAO
 
-    // Pool de hilos para operaciones en background
     public static final ExecutorService dbExecutor =
             Executors.newFixedThreadPool(4);
 
@@ -30,15 +35,19 @@ public abstract class AlbumDatabase extends RoomDatabase {
                             AlbumDatabase.class,
                             "album_mundial_2026.db"
                     )
+                    .fallbackToDestructiveMigration()
                     .addCallback(new Callback() {
                         @Override
                         public void onCreate(@NonNull SupportSQLiteDatabase db) {
                             super.onCreate(db);
-                            // Poblar BD la primera vez que se instala la app
                             dbExecutor.execute(() -> {
-                                AlbumDatabase database = getDatabase(context);
-                                database.laminaDao()
-                                        .insertAllLaminas(DatosIniciales.generarLaminas());
+                                try {
+                                    AlbumDatabase database = getDatabase(context);
+                                    database.laminaDao()
+                                            .insertAllLaminas(DatosIniciales.generarLaminas());
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
                             });
                         }
                     })

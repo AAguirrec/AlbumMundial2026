@@ -9,8 +9,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AlbumMundial2026">
 
+        <!-- LoginActivity es el punto de entrada -->
         <activity
-            android:name=".ui.MainActivity"
+            android:name=".ui.LoginActivity"
             android:exported="true"
             android:windowSoftInputMode="adjustResize">
             <intent-filter>
@@ -18,6 +19,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".ui.MainActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
 
         <activity android:name=".ui.DetalleSeccionActivity" />
 
